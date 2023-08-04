@@ -16,10 +16,10 @@ jobs:
           echo "${{steps.set-outputs.outputs.skip}}"
           echo "${{steps.set-outputs.outputs.not_skip}}"
       - name: Skip check
-        if: ${{ steps.set-outputs.outputs.skip }} == "false"
+        if: !steps.set-outputs.outputs.skip
         run: |
           echo "THIS SHOULD NOT SHOW UP"
       - name: Do not skip check
-        if: ${{ steps.set-outputs.outputs.not_skip }} == "false"
+        if: !steps.set-outputs.outputs.not_skip
         run: |
           echo "THIS SHOULD SHOW UP"
