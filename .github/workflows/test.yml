@@ -1,0 +1,25 @@
+name: test
+
+on: push
+
+jobs:
+  testing-outputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set outputs
+        id: set-outputs
+        run: |
+          echo "SKIP=true" >> $GITHUB_OUTPUT
+          echo "NOT_SKIP=false" >> $GITHUB_OUTPUT
+      - name: Print outputs
+        run: |
+          echo "${{steps.set-outputs.outputs.skip}}"
+          echo "${{steps.set-outputs.outputs.not-skip}}"
+      - name: Skip check
+        if: ${{ !steps.set-outputs.outputs.skip }}
+        run: |
+          echo "THIS SHOULD NOT SHOW UP"
+      - name: Do not skip check
+        if: ${{ !steps.set-outputs.outputs.not-skip }}
+        run: |
+          echo "THIS SHOULD SHOW UP"
