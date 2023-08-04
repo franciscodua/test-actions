@@ -19,10 +19,10 @@ jobs:
           echo "${{steps.set-outputs.outputs.skip}}"
           echo "${{steps.set-outputs.outputs.not_skip}}"
       - name: Skip check
-        if: ${{ ! fromJSON(steps.set-outputs.outputs.skip) }}
+        if: ${{ ! fromJSON(steps.set-outputs.outputs.skip) && false }}
         run: |
           echo "THIS SHOULD NOT SHOW UP"
       - name: Do not skip check
-        if: ${{ fromJSON(steps.set-outputs.outputs.not_skip) }}
+        if: ${{ fromJSON(steps.set-outputs.outputs.not_skip) && true }}
         run: |
           echo "THIS SHOULD SHOW UP"
